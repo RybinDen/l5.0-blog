@@ -1,0 +1,48 @@
+Route::get('login', 'HomeController@getLogin');
+Route::get('logout', 'HomeController@logout');
+Route::group(['prefix' => 'activation'], function(){
+Route::get('/', 'ActivationController@index');
+Route::post('/', 'ActivationController@save');
+Route::get('{id}/{code}', 'ActivationController@email');
+Route::get('code', function(){
+return View::make('user.acode');
+});
+Route::post('code', 'ActivationController@code');
+});
+ Route::group(['prefix'=>'question'],function(){
+//Route::get('/','QuestionController@index');
+Route::get('{id}','QuestionsController@show');
+});
+Route::group(['prefix'=>'admin','before' => 'auth|admin'], function ()
+{
+Route::controller('/', 'AdminController');
+}); 
+
+//Route::controller('message', 'MessagesController');
+//роуты сообщений
+Route::group(['prefix' => 'messages'], function () {
+    Route::get('/', ['as' => 'messages', 'uses' => 'MessagesController@index']);
+    Route::get('create', ['as' => 'messages.create', 'uses' => 'MessagesController@create']);
+    Route::post('/', ['as' => 'messages.store', 'uses' => 'MessagesController@store']);
+    Route::get('{id}', ['as' => 'messages.show', 'uses' => 'MessagesController@show']);
+    Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update']);
+});
+
+Route::get('sitemapCreate', function(){
+// create new sitemap object
+$sitemap = App::make("sitemap");
+// get all posts from db
+$topics = DB::table('topics')->orderBy('created_at', 'desc')->get();
+// add every post to the sitemap
+foreach ($topics as $topic)
+{
+   //$sitemap->add($url,$last_updated, $priority,$frequency,$image,$title);
+   $sitemap->add(URL::to('/')."/topic/".$topic->id, $topic->updated_at, '1', 'weekly',"",$topic->title);
+}
+//return $sitemap->render('html');//показать
+$sitemap->store('xml', 'sitemap');//сохранить
+});
+App::missing(function($exception)
+{
+    return View::make('404')->withMessage($exception->getMessage());
+});

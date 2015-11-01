@@ -1,0 +1,59 @@
+﻿тут буду добавлять все что вырезал из сайта
+время генерации страницы <p> <?= round((microtime(1) - LARAVEL_START), 3) ?> </p>
+ затраченная память  <p> <?= memory_get_usage () ?> </p>
+
+1 форма поиска с помощью google
+<form accept-charset="UTF-8" action="https://www.google.com/search" class="form-horizontal">
+<div class="form-group">
+<label class="col-sm-4 control-label">Поиск по сайту
+<div class="col-sm-8">
+<input type="text" name="q" class="form-control">
+</div>
+</label>
+<input type="hidden" value="tifloforum.ru" name="as_sitesearch">
+</div>
+</form>
+2 из главного шаблона
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+<title>
+{!!Lang::get('title.home')!!} | 
+@yield('title')
+</title>
+<meta name="description" content="
+@yield('meta_description')
+">
+<meta name="keywords" content="
+@yield('meta_keywords')
+">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Latest compiled and minified CSS -->
+<link media="all" type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link media="all" type="text/css"  rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link href="css/main.css" rel="stylesheet" type="text/css">
+</head>
+
+
+
+
+
+@extends('layouts.app')
+@section('title')
+правила
+@stop
+@section('menu')
+<li>{!!Request::is('site')? 'О сайте' : '<a href="/site">О сайте</a>'!!}</li>
+<li>{!!Request::is('site/rules')?'Правила': '<a href="/site/rules">Правила</a>'!!}</li>
+<li>{!!Request::is('site/message')? 'Обратная связь' : '<a href="/site/message">Обратная связь</a>'!!}</li>
+@stop
+@section('content')
+<h1>Правила тифлофорума</h1>
+В разработке<br>
+
+Главное правило, писать все по теме, иначе блокировка пользователя на срок до недели. 
+
+@stop
