@@ -4,11 +4,8 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
-
 	"require": {
-
 		"laravel/framework": "5.0.*",
-
 "laravel/socialite": "~2.0",
 "LaravelRUS/localized-carbon":"dev-master",
 "intervention/image": "dev-master",
