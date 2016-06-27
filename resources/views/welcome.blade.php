@@ -1,57 +1,45 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Laravel</title>
 
-@section('menu')
-<li>{!!Request::is('about')? 'О сайте' : '<a href="/about">О сайте</a>'!!}</li>
-<li>{!!Request::is('contacts')? 'Контакты' : '<a href="/contacts">Контакты</a>'!!}</li>
-@stop
-@section('content')
-<div class="row">
-<div class="col-md-6">
-<h1>Новые статьи</h1>
-@foreach($topics as $topic)
-<h2>{{$topic->title}}</h2>
-<small>
-<a href="teg/{{$topic->teg->id}}">{{$topic->teg->name}}</a>
-</small>
-<p>{{$topic->description}}
-</p>
-{!!Str_limit($topic->content, 140)!!} 
-<a href="topic/{{$topic->id}}"> Далее</a>
+        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
-@endforeach
-</div>
+        <style>
+            html, body {
+                height: 100%;
+            }
 
-<div class="col-md-6">
-<h1>Новые вопросы</h1>
-@foreach($questions as $question)
-<h2><a href="/question/{{$question->id}}">{{$question->title}}</a></h2>
-{{$question->user->name}}<br />
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                display: table;
+                font-weight: 100;
+                font-family: 'Lato';
+            }
 
-Задан: <small>
-{{ LocalizedCarbon::instance($question->created_at)->diffForHumans()}}
-</small>
-<p>Метки:<br />
-@foreach($question->tegs as $teg)
-<small>{{$teg->name}}</small><br />
-@endforeach
-</p>
-<p>
-@if($question->answers->count() == 0)
-Без ответа<br />
-@else
-Ответов: {{$question->answers->count()}}</br />
-Решений: {{App\Models\Answer::where('question_id','=',$question->id)->where('status','=','1')->count()}}
-@endif
-Статус: 
-@if($question->status == 0)
-актуальный 
-@else
-решен
-@endif
-</p>
-@endforeach
-</div>
-</div><!--/row-->
+            .container {
+                text-align: center;
+                display: table-cell;
+                vertical-align: middle;
+            }
 
+            .content {
+                text-align: center;
+                display: inline-block;
+            }
 
-@endsection
+            .title {
+                font-size: 96px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="content">
+                <div class="title">Laravel 5</div>
+            </div>
+        </div>
+    </body>
+</html>

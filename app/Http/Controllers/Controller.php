@@ -1,23 +1,14 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Illuminate\Foundation\Bus\DispatchesCommands;
+namespace App\Http\Controllers;
+
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Auth;
-abstract class Controller extends BaseController {
-	use DispatchesCommands, ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
-protected $user;
-public function __construct(){
-//$online = Online::all()->count();
-//$online = Online::registered()->count();
-//$online = Online::guests()->count();
-//правильно разместить этот код в appServiceProviders
-//view()->share('online', $online);
-if(Auth::check()){
-$this->user = Auth::user();
-view()->share('corentUser', $this->user);
-
+class Controller extends BaseController
+{
+    use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 }
-
-}}
